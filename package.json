@@ -1,5 +1,5 @@
 {
-  "name": "minimal-delayer",
+  "name": "minimum-delayer",
   "version": "0.0.1",
   "description": "node.js string parser to deal with command-like messages",
   "main": "dist/index.js",
