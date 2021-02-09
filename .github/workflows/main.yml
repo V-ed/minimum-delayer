@@ -42,8 +42,26 @@ jobs:
         
     - name: Build
       run: npm run build
+        
+    - name: Test
+      run: npm run test
       
-    - name: Test, build coverage and send to Coveralls
+  coverage:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: [10, 12, 14]
+    
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@v2.1.4
+      with:
+        node-version: '14'
+        
+    - name: Install
+      run: npm ci
+        
+    - name: Coverage and send to Coveralls
       env:
         COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
       run: npm run coveralls
