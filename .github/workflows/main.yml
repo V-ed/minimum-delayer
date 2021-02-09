@@ -8,6 +8,7 @@ on:
 
 jobs:
   lint:
+    name: "Lint"
     runs-on: ubuntu-latest
     
     steps:
@@ -26,6 +27,7 @@ jobs:
       run: npm run lint:tests
       
   build-and-test:
+    name: "Build and Test - Node ${{ matrix.node }}"
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -47,6 +49,7 @@ jobs:
       run: npm run test
       
   coverage:
+    name: "Coverage"
     runs-on: ubuntu-latest
     
     steps:
@@ -64,6 +67,7 @@ jobs:
       run: npm run coveralls
       
   publish-if-version-changed:
+    name: "Publish if version changed"
     needs: ["lint", "build-and-test"]
     runs-on: ubuntu-latest
     
