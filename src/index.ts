@@ -9,8 +9,8 @@ export type ExecutedResults<T> = {
 	delayPassed: number;
 };
 
-export class MinimalDelayer {
-	public readonly minimalDelay: number;
+export class MinimumDelayer {
+	public readonly minimumDelay: number;
 	/**
 	 * The target date on which this delayer will have finished.
 	 *
@@ -26,18 +26,18 @@ export class MinimalDelayer {
 	public readonly creationDate: number;
 
 	/**
-	 * Creates a delayer that can execute function and return a promise only when the minimal delay has been reached.
+	 * Creates a delayer that can execute function and return a promise only when the minimum delay has been reached.
 	 *
-	 * @param minimalDelay The minimal delay, in milliseconds, before this delayer is considered complete.
+	 * @param minimumDelay The minimum delay, in milliseconds, before this delayer is considered complete.
 	 */
-	constructor(minimalDelay?: number) {
-		this.minimalDelay = minimalDelay ?? 0;
+	constructor(minimumDelay?: number) {
+		this.minimumDelay = minimumDelay ?? 0;
 		this.creationDate = Date.now();
-		this.targetDate = this.creationDate + this.minimalDelay;
+		this.targetDate = this.creationDate + this.minimumDelay;
 	}
 
 	/**
-	 * Execute a function immediately, upon which the results will be resolved after the minimal delay finishes.
+	 * Execute a function immediately, upon which the results will be resolved after the minimum delay finishes.
 	 * If this function takes more time to finish than the initial delay given, the delayer will not wait any longer.
 	 *
 	 * @param executor The function to execute immediately.
@@ -47,7 +47,7 @@ export class MinimalDelayer {
 
 		const delayRemaining = this.targetDate - Date.now();
 
-		return MinimalDelayer.delayFunction<ExecutedResults<T>>(
+		return MinimumDelayer.delayFunction<ExecutedResults<T>>(
 			() => ({
 				value: results,
 				delayPassed: Date.now() - this.creationDate,
@@ -62,7 +62,7 @@ export class MinimalDelayer {
 	async wait(): Promise<number> {
 		const delayRemaining = this.targetDate - Date.now();
 
-		return MinimalDelayer.delayFunction(() => delayRemaining, delayRemaining);
+		return MinimumDelayer.delayFunction(() => delayRemaining, delayRemaining);
 	}
 
 	static async delayFunction<T>(executor: () => T, delayRemaining: number): Promise<T> {
@@ -75,10 +75,33 @@ export class MinimalDelayer {
 }
 
 /**
- * Creates a delayer that can execute function and return a promise only when the minimal delay has been reached.
+ * Creates a delayer that immediately execute the provided `executor` function and returns the value after a minimum of time defined by the `minimumDelay` parameter.
  *
- * @param minimalDelay The minimal delay, in milliseconds, before this delayer is considered complete.
+ * @param executor The function to run immediately.
+ * @param minimumDelay The minimum delay, in milliseconds, before this delayer is considered complete.
  */
-export const delayer = (...args: ConstructorParameters<typeof MinimalDelayer>): MinimalDelayer => new MinimalDelayer(...args);
+export function delayer<T>(...args: MinimumDelayerArgsExecutor<T>): Promise<ExecutedResults<T>>;
+/**
+ * Creates a delayer that can execute function and return a promise only when the minimum delay has been reached.
+ *
+ * @param minimumDelay The minimum delay, in milliseconds, before this delayer is considered complete.
+ */
+export function delayer(...args: MinimumDelayerArgs): MinimumDelayer;
+
+export function delayer<T>(...args: MinimumDelayerArgsExecutor<T> | MinimumDelayerArgs): MinimumDelayer | Promise<ExecutedResults<T>> {
+	if (typeof args[0] == 'function') {
+		const [executor, ...delayerArgs] = args;
+
+		const delayer = new MinimumDelayer(...(delayerArgs as MinimumDelayerArgs));
+
+		return delayer.execute(executor);
+	} else {
+		return new MinimumDelayer(...(args as MinimumDelayerArgs));
+	}
+}
+
+type MinimumDelayerArgs = ConstructorParameters<typeof MinimumDelayer>;
+
+type MinimumDelayerArgsExecutor<T> = [executor: () => T | PromiseLike<T>, ...args: MinimumDelayerArgs];
 
 export default delayer;

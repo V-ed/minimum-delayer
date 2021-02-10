@@ -1,6 +1,6 @@
 import 'jest-extended';
 import { setImmediate as flushMicroTasks } from 'timers';
-import delayer, { MinimalDelayer } from '../src/index';
+import delayer, { MinimumDelayer } from '../src/index';
 
 const nowDate = Date.now();
 
@@ -9,8 +9,8 @@ function flushPromises() {
 }
 
 describe('Checking exported functions', () => {
-	it('should provide delayer as new MinimalDelayer', () => {
-		expect(delayer() instanceof MinimalDelayer).toBeTruthy();
+	it('should provide delayer as new MinimumDelayer', () => {
+		expect(delayer() instanceof MinimumDelayer).toBeTruthy();
 	});
 });
 
@@ -45,6 +45,7 @@ describe('timing tests', () => {
 		await flushPromises();
 
 		expect(setTimeout).toHaveBeenCalledTimes(1);
+		// expect to be within few milliseconds of jest execution delays
 		expect(setTimeout).toHaveBeenLastCalledWith(expect.any(Function), expect.toBeWithin(delay - 50, delay));
 	});
 
@@ -70,7 +71,7 @@ describe('timing tests', () => {
 		expect(results.delayPassed).toBe(executorTime);
 	});
 
-	it('should delay using minimal if executor takes less than minimum delay', async () => {
+	it('should delay using minimum if executor takes less than minimum delay', async () => {
 		jest.useFakeTimers('modern');
 
 		jest.setSystemTime(nowDate);
@@ -98,9 +99,8 @@ describe('timing tests', () => {
 		jest.setSystemTime(nowDate);
 
 		const delay = 1000;
-		const executorTime = 1000;
 
-		const executor = () => jest.setSystemTime(nowDate + executorTime);
+		const executor = () => jest.setSystemTime(nowDate + delay);
 
 		const waiter = delayer(delay);
 
