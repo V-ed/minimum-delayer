@@ -7,43 +7,42 @@ on:
 
 jobs:
   lint:
-    name: "Lint"
+    name: 'Lint'
     runs-on: ubuntu-latest
-    
+
     steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-node@v2.1.5
-      with:
-        node-version: '14'
-        
-    - name: Install
-      run: npm ci
-        
-    - name: Lint
-      run: npm run lint
-        
-    - name: Lint Tests
-      run: npm run lint:tests
-      
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2.1.5
+        with:
+          node-version: '14'
+
+      - name: Install
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Lint Tests
+        run: npm run lint:tests
+
   build-and-test:
-    name: "Build and Test - Node ${{ matrix.node }}"
+    name: 'Build and Test - Node ${{ matrix.node }}'
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node: [10, 12, 14]
-    
+        node: [12, 14, 15]
+
     steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-node@v2.1.5
-      with:
-        node-version: ${{ matrix.node }}
-        
-    - name: Install
-      run: npm ci
-        
-    - name: Build
-      run: npm run build
-        
-    - name: Test
-      run: npm test
-      
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2.1.5
+        with:
+          node-version: ${{ matrix.node }}
+
+      - name: Install
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Test
+        run: npm test
