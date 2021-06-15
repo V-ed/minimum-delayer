@@ -30,6 +30,8 @@ describe('timing tests', () => {
 
 		const callback = jest.fn();
 
+		jest.spyOn(window, 'setTimeout');
+
 		const waiter = delayer(delay);
 
 		expect(callback).not.toBeCalled();
@@ -45,8 +47,7 @@ describe('timing tests', () => {
 		await flushPromises();
 
 		expect(setTimeout).toHaveBeenCalledTimes(1);
-		// expect to be within few milliseconds of jest execution delays
-		expect(setTimeout).toHaveBeenLastCalledWith(expect.any(Function), expect.toBeWithin(delay - 50, delay));
+		expect(setTimeout).toHaveBeenLastCalledWith(expect.any(Function), delay);
 	});
 
 	it('should delay more if executor takes longer than minimum delay', async () => {
