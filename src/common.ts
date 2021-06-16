@@ -1,3 +1,5 @@
+import { delayFunction } from './utils';
+
 export type ExecutedResults<T> = {
 	/**
 	 * The return value of the provided function.
@@ -9,16 +11,18 @@ export type ExecutedResults<T> = {
 	delayPassed: number;
 };
 
-export interface CommonOptions {
+export interface CommonOptions<T = unknown> {
 	/** The minimum delay, in milliseconds, before this delayer is considered complete. */
-	minimumDelay: number;
+	delay: number;
 	/** Determines if the promise's result should be the return value of the executor or a detailed object containing the data and extra statistics. */
 	detailed?: boolean;
+	/** Function to run eventually. */
+	fn?: () => T | PromiseLike<T>;
 }
 
-export class CommonMinimumDelayer {
+export class CommonMinimumDelayer<T = unknown> {
 	public get minimumDelay() {
-		return this.options.minimumDelay;
+		return this.options.delay;
 	}
 	/**
 	 * The target date on which this delayer will have finished.
@@ -34,17 +38,17 @@ export class CommonMinimumDelayer {
 	 */
 	public readonly creationDate: number;
 
-	protected options: CommonOptions;
+	protected options: CommonOptions<T>;
 
 	/**
 	 * Creates a delayer that can execute function and return a promise only when the minimum delay has been reached.
 	 *
 	 * @param options The options to give to this delayer.
 	 */
-	constructor(options?: Partial<CommonOptions>) {
+	constructor(options?: Partial<CommonOptions<T>>) {
 		this.options = {
 			...{
-				minimumDelay: 0,
+				delay: 0,
 				detailed: false,
 			},
 			...options,
@@ -60,12 +64,16 @@ export class CommonMinimumDelayer {
 	 *
 	 * @param executor The function to execute immediately.
 	 */
-	async execute(executor?: () => unknown | PromiseLike<unknown>): Promise<unknown | undefined | ExecutedResults<unknown>> {
-		const results = await executor?.();
+	async execute(executor?: () => T | PromiseLike<T>): Promise<T | undefined | ExecutedResults<T | undefined>> {
+		let results = await executor?.();
 
 		const delayRemaining = this.targetDate - Date.now();
 
-		return CommonMinimumDelayer.delayFunction(() => {
+		return delayFunction(async () => {
+			if (this.options.fn) {
+				results = await this.options.fn();
+			}
+
 			if (this.options.detailed) {
 				return {
 					value: results,
@@ -75,22 +83,5 @@ export class CommonMinimumDelayer {
 				return results;
 			}
 		}, delayRemaining);
-	}
-
-	/**
-	 * @returns A promise, containing the time in milliseconds that took between this execution and the initial target date.
-	 */
-	async wait(): Promise<number> {
-		const delayRemaining = this.targetDate - Date.now();
-
-		return CommonMinimumDelayer.delayFunction(() => delayRemaining, delayRemaining);
-	}
-
-	static async delayFunction<T>(executor: () => T, delayRemaining: number): Promise<T> {
-		if (delayRemaining > 0) {
-			return new Promise((resolve) => setTimeout(() => resolve(executor()), delayRemaining));
-		} else {
-			return executor();
-		}
 	}
 }

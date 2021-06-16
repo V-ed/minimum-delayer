@@ -7,10 +7,10 @@ import type {
 	MinimumDelayerArgs,
 } from './types';
 
-export interface MinimumDelayerOptions extends CommonOptions {
+export interface MinimumDelayerOptions extends Omit<CommonOptions, 'fn'> {
 	detailed: false;
 }
-export interface MinimumDelayerDetailedOptions extends CommonOptions {
+export interface MinimumDelayerDetailedOptions extends Omit<CommonOptions, 'fn'> {
 	detailed: true;
 }
 
@@ -25,7 +25,7 @@ export class MinimumDelayer extends CommonMinimumDelayer {
 	}
 
 	/**
-	 * Execute a function immediately, upon which the results will be resolved after the minimum delay finishes.
+	 * Execute the given function immediately, upon which the results will be resolved after the minimum delay finishes.
 	 * If this function takes more time to finish than the initial delay given, the delayer will not wait any longer.
 	 *
 	 * @param executor The function to execute immediately.
@@ -46,7 +46,7 @@ export class MinimumDelayerDetailed extends CommonMinimumDelayer {
 	}
 
 	/**
-	 * Execute a function immediately, upon which the results will be resolved after the minimum delay finishes.
+	 * Execute the given function immediately, upon which the results will be resolved after the minimum delay finishes.
 	 * If this function takes more time to finish than the initial delay given, the delayer will not wait any longer.
 	 *
 	 * @param executor The function to execute immediately.
@@ -76,6 +76,7 @@ export function delayer<T>(...args: DelayerDetailedArgsExecutor<T>): Promise<Exe
  * Equivalent to doing `delayer({minimumDelay: number})`
  *
  * @param delay The delay in milliseconds.
+ * @param options The options to give to this delayer.
  */
 export function delayer(...args: DelayerImmediateArgs): MinimumDelayer;
 /**
@@ -84,6 +85,7 @@ export function delayer(...args: DelayerImmediateArgs): MinimumDelayer;
  * Equivalent to doing `delayer({minimumDelay: number})`
  *
  * @param delay The delay in milliseconds.
+ * @param options The options to give to this delayer.
  */
 export function delayer(...args: DelayerDetailedImmediateArgs): MinimumDelayerDetailed;
 
@@ -106,9 +108,9 @@ export function delayer<T>(
 		const [delay, options] = args;
 
 		if (!options?.detailed) {
-			return new MinimumDelayer({ minimumDelay: delay, ...((options as Partial<MinimumDelayerOptions> | undefined) ?? []) });
+			return new MinimumDelayer({ delay: delay, ...((options as Partial<MinimumDelayerOptions> | undefined) ?? []) });
 		} else {
-			return new MinimumDelayerDetailed({ minimumDelay: delay, ...options });
+			return new MinimumDelayerDetailed({ delay: delay, ...options });
 		}
 	} else {
 		return new MinimumDelayer(...(args as MinimumDelayerArgs));

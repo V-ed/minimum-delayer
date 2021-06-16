@@ -28,7 +28,7 @@ describe('Checking exported functions', () => {
 
 			const delay = 500;
 
-			const minDelayer = delayer(() => 2, { minimumDelay: delay });
+			const minDelayer = delayer(() => 2, { delay: delay });
 
 			expect(minDelayer instanceof Promise).toBeTruthy();
 
@@ -46,7 +46,7 @@ describe('Checking exported functions', () => {
 
 			const delay = 500;
 
-			const minDelayer = delayer(() => 2, { minimumDelay: delay, detailed: true });
+			const minDelayer = delayer(() => 2, { delay, detailed: true });
 
 			expect(minDelayer instanceof Promise).toBeTruthy();
 

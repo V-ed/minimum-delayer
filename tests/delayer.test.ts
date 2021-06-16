@@ -7,7 +7,7 @@ function flushPromises() {
 	return new Promise(flushMicroTasks);
 }
 
-describe('timing tests', () => {
+describe('delayer timing tests', () => {
 	beforeEach(() => {
 		jest.setTimeout(300);
 		jest.useFakeTimers('modern');

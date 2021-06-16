@@ -1,48 +1,49 @@
+import { wait } from '$/utils';
 import { CommonMinimumDelayer, CommonOptions, ExecutedResults } from '../common';
 
-export interface WaiterOptions<T> extends Partial<CommonOptions> {
+export interface WaiterOptions<T> extends Partial<CommonOptions<T>> {
 	detailed?: false;
-	/** Function to run eventually. */
 	fn: () => T | PromiseLike<T>;
 }
-export interface WaiterDetailedOptions<T> extends Partial<CommonOptions> {
-	detailed?: true;
-	/** Function to run eventually. */
+export interface WaiterDetailedOptions<T> extends Partial<CommonOptions<T>> {
+	detailed: true;
 	fn: () => T | PromiseLike<T>;
 }
 
-export class Waiter<T> extends CommonMinimumDelayer {
+export class Waiter<T> extends CommonMinimumDelayer<T> {
 	/**
-	 * Creates a delayer that can execute function and return a promise only when the minimum delay has been reached.
+	 * Creates a waiter that prepares the function to be run after a minimum of delay specified.
 	 *
-	 * @param options The options to give to this delayer.
+	 * The main difference with the delayer function is that this doesn't execute the function immediately when it give it the function; it instead waits for the minimum delay, then executes it.
+	 *
+	 * @param options The options to give to this waiter.
 	 */
-	constructor(options?: Partial<WaiterOptions<T>>) {
+	constructor(options?: WaiterOptions<T>) {
 		super(options);
 	}
 
 	/**
-	 * Execute the waiter function, upon which the results will be resolved after the minimum delay finishes.
-	 * If this function takes more time to finish than the initial delay given, the delayer will not wait any longer.
+	 * Execute the waiter function after the minimum delay finishes.
 	 */
 	async execute(): Promise<T> {
 		return super.execute() as Promise<T>;
 	}
 }
 
-export class WaiterDetailed<T> extends CommonMinimumDelayer {
+export class WaiterDetailed<T> extends CommonMinimumDelayer<T> {
 	/**
-	 * Creates a delayer that can execute function and return a promise only when the minimum delay has been reached.
+	 * Creates a waiter that prepares the function to be run after a minimum of delay specified.
 	 *
-	 * @param options The options to give to this delayer.
+	 * The main difference with the delayer function is that this doesn't execute the function immediately when it give it the function; it instead waits for the minimum delay, then executes it.
+	 *
+	 * @param options The options to give to this waiter.
 	 */
-	constructor(options?: Partial<WaiterDetailedOptions<T>>) {
+	constructor(options?: WaiterDetailedOptions<T>) {
 		super(options);
 	}
 
 	/**
-	 * Execute the waiter function, upon which the results will be resolved after the minimum delay finishes.
-	 * If this function takes more time to finish than the initial delay given, the delayer will not wait any longer.
+	 * Execute the waiter function after the minimum delay finishes.
 	 */
 	async execute(): Promise<ExecutedResults<T>> {
 		return super.execute() as Promise<ExecutedResults<T>>;
@@ -50,25 +51,35 @@ export class WaiterDetailed<T> extends CommonMinimumDelayer {
 }
 
 /**
- * Creates a delayer that can execute function and return a promise only when the minimum delay has been reached.
+ * Creates a waiter that prepares function to be run after a minimum of delay specified.
  *
- * Equivalent to doing `delayer({minimumDelay: number})`
+ * The main difference with the delayer function is that this doesn't execute the function immediately when it give it the function; it instead waits for the minimum delay, then executes it.
  *
- * @param delay The delay in milliseconds.
+ * @param options The options to give to this waiter.
  */
 export function waiter<T>(options: WaiterOptions<T>): Waiter<T>;
 /**
- * Creates a delayer that can execute function and return a promise only when the minimum delay has been reached.
+ * Creates a waiter that prepares function to be run after a minimum of delay specified.
  *
- * Equivalent to doing `delayer({minimumDelay: number})`
+ * The main difference with the delayer function is that this doesn't execute the function immediately when it give it the function; it instead waits for the minimum delay, then executes it.
  *
- * @param delay The delay in milliseconds.
+ * @param options The options to give to this waiter.
  */
 export function waiter<T>(options: WaiterDetailedOptions<T>): WaiterDetailed<T>;
+/**
+ * Creates a promise that resolves after the given delay.
+ *
+ * @param delay The delay in milliseconds.
+ * @returns The initial given delay.
+ */
+export function waiter(delay: number): Promise<number>;
 
-export function waiter<T>(options: WaiterOptions<T> | WaiterDetailedOptions<T>): Waiter<T> | WaiterDetailed<T> {
+export function waiter<T>(options: number | WaiterOptions<T> | WaiterDetailedOptions<T>): Waiter<T> | WaiterDetailed<T> | Promise<number> {
+	if (typeof options == 'number') {
+		return wait(options);
+	}
 	if (!options.detailed) {
-		return new Waiter({ ...options, detailed: false });
+		return new Waiter(options as WaiterOptions<T>);
 	} else {
 		return new WaiterDetailed(options);
 	}
