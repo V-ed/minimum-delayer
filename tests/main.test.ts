@@ -1,6 +1,5 @@
-import 'jest-extended';
+import { delayer, MinimumDelayer, MinimumDelayerDetailed, Waiter, waiter, WaiterDetailed } from '$/index';
 import { setImmediate as flushMicroTasks } from 'timers';
-import delayer, { MinimumDelayer } from '../src/index';
 
 const nowDate = Date.now();
 
@@ -9,109 +8,69 @@ function flushPromises() {
 }
 
 describe('Checking exported functions', () => {
-	it('should provide delayer as new MinimumDelayer', () => {
-		expect(delayer() instanceof MinimumDelayer).toBeTruthy();
-	});
-});
-
-describe('timing tests', () => {
-	beforeEach(() => {
-		jest.setTimeout(300);
-		jest.useFakeTimers();
-	});
-
 	afterEach(() => {
 		jest.runOnlyPendingTimers();
 		jest.useRealTimers();
 	});
 
-	it('should call functions and timeouts with proper arguments', async () => {
-		const delay = 1000;
+	describe('delayer', () => {
+		it('should provide delayer as new MinimumDelayer', () => {
+			expect(delayer(200) instanceof MinimumDelayer).toBeTruthy();
+		});
 
-		const callback = jest.fn();
+		it('should provide delayer as new MinimumDelayerDetailed', () => {
+			expect(delayer(200, { detailed: true }) instanceof MinimumDelayerDetailed).toBeTruthy();
+		});
 
-		jest.spyOn(window, 'setTimeout');
+		it('should provide delayer as new Promise', async () => {
+			jest.useFakeTimers('modern');
+			jest.setSystemTime(nowDate);
 
-		const waiter = delayer(delay);
+			const delay = 500;
 
-		expect(callback).not.toBeCalled();
+			const minDelayer = delayer(() => 2, { minimumDelay: delay });
 
-		waiter.execute(callback);
+			expect(minDelayer instanceof Promise).toBeTruthy();
 
-		expect(callback).toBeCalled();
-		expect(callback).toHaveBeenCalledTimes(1);
+			await flushPromises();
+			jest.runAllTimers();
 
-		expect(setTimeout).not.toBeCalled();
+			const results = await minDelayer;
 
-		jest.runAllTimers();
-		await flushPromises();
+			expect(results).toBe(2);
+		});
 
-		expect(setTimeout).toHaveBeenCalledTimes(1);
-		expect(setTimeout).toHaveBeenLastCalledWith(expect.any(Function), delay);
+		it('should provide delayer as new Detailed Promise', async () => {
+			jest.useFakeTimers('modern');
+			jest.setSystemTime(nowDate);
+
+			const delay = 500;
+
+			const minDelayer = delayer(() => 2, { minimumDelay: delay, detailed: true });
+
+			expect(minDelayer instanceof Promise).toBeTruthy();
+
+			await flushPromises();
+			jest.runAllTimers();
+
+			const results = await minDelayer;
+
+			expect(results).toBeDefined();
+			expect(results.value).toBeDefined();
+			expect(results.value).toBe(2);
+		});
 	});
+	describe('waiter', () => {
+		it('should provide waiter as new Waiter', () => {
+			expect(
+				waiter({
+					fn: () => 2,
+				}) instanceof Waiter,
+			).toBeTruthy();
+		});
 
-	it('should delay more if executor takes longer than minimum delay', async () => {
-		jest.useFakeTimers('modern');
-
-		jest.setSystemTime(nowDate);
-
-		const delay = 500;
-		const executorTime = 2000;
-
-		const executor = () => jest.setSystemTime(nowDate + executorTime);
-
-		const waiter = delayer(delay);
-
-		const promise = waiter.execute(executor);
-
-		await flushPromises();
-		jest.runAllTimers();
-
-		const results = await promise;
-
-		expect(results.delayPassed).toBe(executorTime);
-	});
-
-	it('should delay using minimum if executor takes less than minimum delay', async () => {
-		jest.useFakeTimers('modern');
-
-		jest.setSystemTime(nowDate);
-
-		const delay = 2000;
-		const executorTime = 500;
-
-		const executor = () => jest.setSystemTime(nowDate + executorTime);
-
-		const waiter = delayer(delay);
-
-		const promise = waiter.execute(executor);
-
-		await flushPromises();
-		jest.runAllTimers();
-
-		const results = await promise;
-
-		expect(results.delayPassed).toBe(delay);
-	});
-
-	it('should delayed the same if the time and minimum delay are the same', async () => {
-		jest.useFakeTimers('modern');
-
-		jest.setSystemTime(nowDate);
-
-		const delay = 1000;
-
-		const executor = () => jest.setSystemTime(nowDate + delay);
-
-		const waiter = delayer(delay);
-
-		const promise = waiter.execute(executor);
-
-		await flushPromises();
-		jest.runAllTimers();
-
-		const results = await promise;
-
-		expect(results.delayPassed).toBe(delay);
+		it('should provide delayer as new MinimumDelayerDetailed', () => {
+			expect(waiter({ fn: () => 2, detailed: true }) instanceof WaiterDetailed).toBeTruthy();
+		});
 	});
 });
