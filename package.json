@@ -52,7 +52,7 @@
     "npm-run-all": "4.1.5",
     "ts-jest": "27.1.4",
     "ts-node": "10.7.0",
-    "tsc-alias": "1.6.4",
+    "tsc-alias": "1.6.5",
     "typescript": "4.3.5"
   }
 }
