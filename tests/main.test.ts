@@ -1,16 +1,17 @@
 import { delayer, MinimumDelayer, MinimumDelayerDetailed, Waiter, waiter, WaiterDetailed } from '$/index';
-import { setImmediate as flushMicroTasks } from 'timers';
-
-const nowDate = Date.now();
-
-function flushPromises() {
-	return new Promise(flushMicroTasks);
-}
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { flushPromises, nowDate } from './helper';
 
 describe('Checking exported functions', () => {
+	beforeEach(() => {
+		vi.useFakeTimers();
+		vi.setSystemTime(nowDate);
+	});
+
 	afterEach(() => {
-		jest.runOnlyPendingTimers();
-		jest.useRealTimers();
+		vi.runOnlyPendingTimers();
+		vi.restoreAllMocks();
+		vi.useRealTimers();
 	});
 
 	describe('delayer', () => {
@@ -23,8 +24,9 @@ describe('Checking exported functions', () => {
 		});
 
 		it('should provide delayer as new Promise', async () => {
-			jest.useFakeTimers('modern');
-			jest.setSystemTime(nowDate);
+			// vi.useFakeTimers('modern');
+			vi.useFakeTimers();
+			vi.setSystemTime(nowDate);
 
 			const delay = 500;
 
@@ -33,7 +35,7 @@ describe('Checking exported functions', () => {
 			expect(minDelayer instanceof Promise).toBeTruthy();
 
 			await flushPromises();
-			jest.runAllTimers();
+			vi.runAllTimers();
 
 			const results = await minDelayer;
 
@@ -41,8 +43,9 @@ describe('Checking exported functions', () => {
 		});
 
 		it('should provide delayer as new Detailed Promise', async () => {
-			jest.useFakeTimers('modern');
-			jest.setSystemTime(nowDate);
+			// vi.useFakeTimers('modern');
+			vi.useFakeTimers();
+			vi.setSystemTime(nowDate);
 
 			const delay = 500;
 
@@ -51,7 +54,7 @@ describe('Checking exported functions', () => {
 			expect(minDelayer instanceof Promise).toBeTruthy();
 
 			await flushPromises();
-			jest.runAllTimers();
+			vi.runAllTimers();
 
 			const results = await minDelayer;
 

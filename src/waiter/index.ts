@@ -25,7 +25,7 @@ export class Waiter<T> extends CommonMinimumDelayer<T> {
 	/**
 	 * Execute the waiter function after the minimum delay finishes.
 	 */
-	async execute(): Promise<T> {
+	override async execute(): Promise<T> {
 		return super.execute() as Promise<T>;
 	}
 }
@@ -45,7 +45,7 @@ export class WaiterDetailed<T> extends CommonMinimumDelayer<T> {
 	/**
 	 * Execute the waiter function after the minimum delay finishes.
 	 */
-	async execute(): Promise<ExecutedResults<T>> {
+	override async execute(): Promise<ExecutedResults<T>> {
 		return super.execute() as Promise<ExecutedResults<T>>;
 	}
 }

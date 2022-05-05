@@ -30,7 +30,7 @@ export class MinimumDelayer extends CommonMinimumDelayer {
 	 *
 	 * @param executor The function to execute immediately.
 	 */
-	async execute<T>(executor: () => T | PromiseLike<T>): Promise<T> {
+	override async execute<T>(executor: () => T | PromiseLike<T>): Promise<T> {
 		return super.execute(executor) as Promise<T>;
 	}
 }
@@ -51,7 +51,7 @@ export class MinimumDelayerDetailed extends CommonMinimumDelayer {
 	 *
 	 * @param executor The function to execute immediately.
 	 */
-	async execute<T>(executor: () => T | PromiseLike<T>): Promise<ExecutedResults<T>> {
+	override async execute<T>(executor: () => T | PromiseLike<T>): Promise<ExecutedResults<T>> {
 		return super.execute(executor) as Promise<ExecutedResults<T>>;
 	}
 }
@@ -108,11 +108,17 @@ export function delayer<T>(
 		const [delay, options] = args;
 
 		if (!options?.detailed) {
-			return new MinimumDelayer({ delay: delay, ...((options as Partial<MinimumDelayerOptions> | undefined) ?? []) });
+			return new MinimumDelayer({ delay: delay, ...(options as Partial<MinimumDelayerOptions> | undefined) });
 		} else {
 			return new MinimumDelayerDetailed({ delay: delay, ...options });
 		}
 	} else {
-		return new MinimumDelayer(...(args as MinimumDelayerArgs));
+		const [options] = args as unknown as MinimumDelayerArgs;
+
+		if (!options?.detailed) {
+			return new MinimumDelayer(options);
+		} else {
+			return new MinimumDelayerDetailed(options as Partial<MinimumDelayerDetailedOptions>);
+		}
 	}
 }
