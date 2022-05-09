@@ -5,6 +5,7 @@ const vitestBaseConfig = defineConfig({
 	plugins: [VitePluginTsConfigPaths({ loose: true })],
 	test: {
 		testTimeout: 30000,
+		passWithNoTests: true,
 		environment: 'happy-dom',
 		coverage: {
 			reportsDirectory: `./coverage`,
