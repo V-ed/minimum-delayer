@@ -1,5 +1,12 @@
 # Changelog
 
+### [0.3.2](https://github.com/V-ed/minimum-delayer/compare/minimum-delayer-v0.3.1...minimum-delayer-v0.3.2) (2022-05-10)
+
+
+### Bug Fixes
+
+* **build:** generate types correctly ([678afef](https://github.com/V-ed/minimum-delayer/commit/678afefbcd366915274b992d5f6c8c9a7d866e55))
+
 ### [0.3.1](https://github.com/V-ed/minimum-delayer/compare/minimum-delayer-v0.3.0...minimum-delayer-v0.3.1) (2022-05-09)
 
 
