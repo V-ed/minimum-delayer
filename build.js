@@ -9,11 +9,10 @@ const peerDepKeys = peerDependencies ? Object.keys(peerDependencies) : [];
 const deps = depKeys.concat(peerDepKeys);
 
 const outDir = 'dist';
-const entry = 'src/index';
 
 /** @type {import('esbuild').BuildOptions } */
 const shared = {
-	entryPoints: [entry],
+	entryPoints: ['src/index.ts'],
 	bundle: true,
 	sourcemap: true,
 	// minify: true,
@@ -41,6 +40,5 @@ build({
 
 // Generate Types
 new Generator({
-	entry,
 	output: `${outDir}/types/index.d.ts`,
 }).generate();
