@@ -1,7 +1,7 @@
 lockfileVersion: 5.4
 
 specifiers:
-  '@types/node': 16.11.60
+  '@types/node': 16.11.63
   '@v-ed/eslint-config': 0.1.3
   '@v-ed/prettier-config': 0.1.2
   '@v-ed/tsconfig': 0.2.0
@@ -17,7 +17,7 @@ specifiers:
   vitest: 0.12.2
 
 devDependencies:
-  '@types/node': 16.11.60
+  '@types/node': 16.11.63
   '@v-ed/eslint-config': 0.1.3_7ilbxdl5iguzcjriqqcg2m5cku
   '@v-ed/prettier-config': 0.1.2
   '@v-ed/tsconfig': 0.2.0
@@ -160,13 +160,13 @@ packages:
   /@types/concat-stream/1.6.1:
     resolution: {integrity: sha512-eHE4cQPoj6ngxBZMvVf6Hw7Mh4jMW4U9lpGmS5GBPB9RYxlFg+CHaVN7ErNY4W9XfLIEn20b4VDYaIrbq0q4uA==}
     dependencies:
-      '@types/node': 16.11.60
+      '@types/node': 16.11.63
     dev: true
 
   /@types/form-data/0.0.33:
     resolution: {integrity: sha512-8BSvG1kGm83cyJITQMZSulnl6QV8jqAGreJsc5tPu1Jq0vTSOiY/k24Wx82JRpWwZSqrala6sd5rWi6aNXvqcw==}
     dependencies:
-      '@types/node': 16.11.60
+      '@types/node': 16.11.63
     dev: true
 
   /@types/istanbul-lib-coverage/2.0.4:
@@ -181,8 +181,8 @@ packages:
     resolution: {integrity: sha512-F0KIgDJfy2nA3zMLmWGKxcH2ZVEtCZXHHdOQs2gSaQ27+lNeEfGxzkIw90aXswATX7AZ33tahPbzy6KAfUreVw==}
     dev: true
 
-  /@types/node/16.11.60:
-    resolution: {integrity: sha512-kYIYa1D1L+HDv5M5RXQeEu1o0FKA6yedZIoyugm/MBPROkLpX4L7HRxMrPVyo8bnvjpW/wDlqFNGzXNMb7AdRw==}
+  /@types/node/16.11.63:
+    resolution: {integrity: sha512-3OxnrEQLBz8EIIaHpg3CibmTAEGkDBcHY4fL5cnBwg2vd2yvHrUDGWxK+MlYPeXWWIoJJW79dGtU+oeBr6166Q==}
     dev: true
 
   /@types/node/8.10.66:
