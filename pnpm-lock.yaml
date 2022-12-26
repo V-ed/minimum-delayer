@@ -8,7 +8,7 @@ specifiers:
   c8: 7.12.0
   esbuild: 0.16.10
   eslint: 8.30.0
-  happy-dom: 7.8.1
+  happy-dom: 8.1.1
   npm-dts: 1.3.12
   npm-run-all: 4.1.5
   prettier: 2.8.1
@@ -24,13 +24,13 @@ devDependencies:
   c8: 7.12.0
   esbuild: 0.16.10
   eslint: 8.30.0
-  happy-dom: 7.8.1
+  happy-dom: 8.1.1
   npm-dts: 1.3.12
   npm-run-all: 4.1.5
   prettier: 2.8.1
   typescript: 4.9.4
   vite-tsconfig-paths: 3.6.0
-  vitest: 0.12.2_c8@7.12.0+happy-dom@7.8.1
+  vitest: 0.12.2_c8@7.12.0+happy-dom@8.1.1
 
 packages:
 
@@ -1501,8 +1501,8 @@ packages:
     resolution: {integrity: sha512-bzh50DW9kTPM00T8y4o8vQg89Di9oLJVLW/KaOGIXJWP/iqCN6WKYkbNOF04vFLJhwcpYUh9ydh/+5vpOqV4YQ==}
     dev: true
 
-  /happy-dom/7.8.1:
-    resolution: {integrity: sha512-lKpeGDtA0FqS/LpAEU+5N5kKkmW5TOjZCXZDnF7YtWuvKP9iwCqpeshG9gXA/H+gX0VQ/I/OToy73+umx1NQUw==}
+  /happy-dom/8.1.1:
+    resolution: {integrity: sha512-uI8NneN2B0D+vwIhjQVKtIUYOSh/zymfj61bU/fxkoAw+Aktn0ewG6dYKyFPOvyBoFLPg3S8fsn2OqSoYCqJeQ==}
     dependencies:
       css.escape: 1.5.1
       he: 1.2.0
@@ -2708,7 +2708,7 @@ packages:
       fsevents: 2.3.2
     dev: true
 
-  /vitest/0.12.2_c8@7.12.0+happy-dom@7.8.1:
+  /vitest/0.12.2_c8@7.12.0+happy-dom@8.1.1:
     resolution: {integrity: sha512-olNsbdqYEPsAXbMe9Rgg9X8bCWO7+wn+AvoRqNmCOze32b9qQ+FhU1jO5H6Z6AxnTWGOGqoLSrXBea73xdOo1A==}
     engines: {node: '>=v14.16.0'}
     hasBin: true
@@ -2731,7 +2731,7 @@ packages:
       '@types/chai-subset': 1.3.3
       c8: 7.12.0
       chai: 4.3.7
-      happy-dom: 7.8.1
+      happy-dom: 8.1.1
       local-pkg: 0.4.2
       tinypool: 0.1.3
       tinyspy: 0.3.3
