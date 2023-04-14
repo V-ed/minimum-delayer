@@ -30,6 +30,7 @@ jobs:
       - name: Check for dupe action
         id: skip_check
         uses: fkirc/skip-duplicate-actions@v4
+        continue-on-error: true
 
       - name: Cache pnpm modules
         id: cache-modules
