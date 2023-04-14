@@ -2,9 +2,9 @@
   "name": "minimum-delayer",
   "version": "0.3.2",
   "description": "node js delayer that allows to execute commands immediately, but only returning the value after a minimum delay",
-  "module": "dist/index.esm.js",
+  "module": "dist/index.mjs",
   "main": "dist/index.js",
-  "types": "dist/types/index.d.ts",
+  "types": "dist/index.d.ts",
   "exports": {
     ".": {
       "import": "./dist/index.mjs",
