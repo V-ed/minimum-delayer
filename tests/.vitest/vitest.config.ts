@@ -1,7 +1,8 @@
 import VitePluginTsConfigPaths from 'vite-tsconfig-paths';
-import { defineConfig, UserConfig } from 'vitest/config';
+import type { CoverageC8Options } from 'vitest';
+import { defineConfig } from 'vitest/config';
 
-type CoverageReporter = UserConfig['test']['coverage']['reporter'];
+type CoverageReporter = CoverageC8Options['reporter'];
 
 const coverageReporter: CoverageReporter = (process.env.COV_REPORTER as CoverageReporter) ?? 'lcov';
 const coverageDirectory: string = process.env.COV_DIRECTORY ?? `./coverage`;
