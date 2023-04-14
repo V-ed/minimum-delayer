@@ -73,7 +73,8 @@ jobs:
         uses: pnpm/action-setup@v2
         with:
           version: ${{ env.PNPM_VERSION }}
-          run_install: true
+          run_install: |
+            - recursive: false
 
       - name: Lint Source
         run: pnpm run lint:src
@@ -106,7 +107,8 @@ jobs:
         uses: pnpm/action-setup@v2
         with:
           version: ${{ env.PNPM_VERSION }}
-          run_install: true
+          run_install: |
+            - recursive: false
 
       - name: Build
         run: pnpm run build
@@ -136,7 +138,8 @@ jobs:
         uses: pnpm/action-setup@v2
         with:
           version: ${{ env.PNPM_VERSION }}
-          run_install: true
+          run_install: |
+            - recursive: false
 
       - name: Test
         run: pnpm run test --coverage

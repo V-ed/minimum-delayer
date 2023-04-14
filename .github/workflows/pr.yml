@@ -33,7 +33,8 @@ jobs:
         uses: pnpm/action-setup@v2
         with:
           version: ${{ env.PNPM_VERSION }}
-          run_install: true
+          run_install: |
+            - recursive: false
 
       - name: Test and Coverage (PR)
         uses: anuraag016/Jest-Coverage-Diff@master
