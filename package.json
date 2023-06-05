@@ -61,7 +61,7 @@
     "@v-ed/eslint-config": "0.1.4",
     "@v-ed/prettier-config": "0.1.2",
     "@v-ed/tsconfig": "0.3.0",
-    "@vitest/coverage-c8": "0.31.1",
+    "@vitest/coverage-c8": "0.31.4",
     "c8": "7.14.0",
     "eslint": "8.41.0",
     "happy-dom": "9.20.3",
@@ -70,6 +70,6 @@
     "tsup": "6.7.0",
     "typescript": "5.0.4",
     "vite-tsconfig-paths": "4.2.0",
-    "vitest": "0.31.1"
+    "vitest": "0.31.4"
   }
 }
