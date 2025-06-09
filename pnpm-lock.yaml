@@ -10,7 +10,7 @@ devDependencies:
     version: 16.18.3
   '@v-ed/eslint-config':
     specifier: 0.2.3
-    version: 0.2.3(@eslint/js@9.27.0)(eslint@9.28.0)(typescript-eslint@8.18.2)(typescript@5.5.4)
+    version: 0.2.3(@eslint/js@9.28.0)(eslint@9.28.0)(typescript-eslint@8.18.2)(typescript@5.5.4)
   '@v-ed/prettier-config':
     specifier: 0.3.0
     version: 0.3.0(prettier@3.5.3)(svelte@3.59.1)
@@ -24,8 +24,8 @@ devDependencies:
     specifier: 9.28.0
     version: 9.28.0
   happy-dom:
-    specifier: 17.4.7
-    version: 17.4.7
+    specifier: 17.6.3
+    version: 17.6.3
   npm-run-all2:
     specifier: 8.0.4
     version: 8.0.4
@@ -43,7 +43,7 @@ devDependencies:
     version: 4.3.2(typescript@5.5.4)
   vitest:
     specifier: 3.1.4
-    version: 3.1.4(@types/node@16.18.3)(happy-dom@17.4.7)
+    version: 3.1.4(@types/node@16.18.3)(happy-dom@17.6.3)
 
 packages:
 
@@ -569,11 +569,6 @@ packages:
       - supports-color
     dev: true
 
-  /@eslint/js@9.27.0:
-    resolution: {integrity: sha512-G5JD9Tu5HJEu4z2Uo4aHY2sLV64B7CDMXxFzqzjl3NKd6RVzSXNoE80jk7Y0lJkTTkjiIhBAqmlYwjuBY3tvpA==}
-    engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
-    dev: true
-
   /@eslint/js@9.28.0:
     resolution: {integrity: sha512-fnqSjGWd/CoIp4EXIxWVK/sHA6DOHN4+8Ix2cX5ycOY7LG0UY8nHCU5pIp2eaE1Mc7Qd8kHspYNzYXT2ojPLzg==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
@@ -975,7 +970,7 @@ packages:
       eslint-visitor-keys: 4.2.0
     dev: true
 
-  /@v-ed/eslint-config@0.2.3(@eslint/js@9.27.0)(eslint@9.28.0)(typescript-eslint@8.18.2)(typescript@5.5.4):
+  /@v-ed/eslint-config@0.2.3(@eslint/js@9.28.0)(eslint@9.28.0)(typescript-eslint@8.18.2)(typescript@5.5.4):
     resolution: {integrity: sha512-mmICie5kyYat5KhohUemQXLpAsTxe9lal8dozGHsEk2Snfge88u179AZoD1GdwBNwqFfbJBqOVtsd+m8fs5dww==}
     engines: {node: '>=18'}
     peerDependencies:
@@ -984,7 +979,7 @@ packages:
       typescript: '*'
       typescript-eslint: '>=8'
     dependencies:
-      '@eslint/js': 9.27.0
+      '@eslint/js': 9.28.0
       eslint: 9.28.0
       typescript: 5.5.4
       typescript-eslint: 8.18.2(eslint@9.28.0)(typescript@5.5.4)
@@ -1033,7 +1028,7 @@ packages:
       std-env: 3.9.0
       test-exclude: 7.0.1
       tinyrainbow: 2.0.0
-      vitest: 3.1.4(@types/node@16.18.3)(happy-dom@17.4.7)
+      vitest: 3.1.4(@types/node@16.18.3)(happy-dom@17.6.3)
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -1635,9 +1630,9 @@ packages:
     resolution: {integrity: sha512-EtKwoO6kxCL9WO5xipiHTZlSzBm7WLT627TqC/uVRd0HKmq8NXyebnNYxDoBi7wt8eTWrUrKXCOVaFq9x1kgag==}
     dev: true
 
-  /happy-dom@17.4.7:
-    resolution: {integrity: sha512-NZypxadhCiV5NT4A+Y86aQVVKQ05KDmueja3sz008uJfDRwz028wd0aTiJPwo4RQlvlz0fznkEEBBCHVNWc08g==}
-    engines: {node: '>=18.0.0'}
+  /happy-dom@17.6.3:
+    resolution: {integrity: sha512-UVIHeVhxmxedbWPCfgS55Jg2rDfwf2BCKeylcPSqazLz5w3Kri7Q4xdBJubsr/+VUzFLh0VjIvh13RaDA2/Xug==}
+    engines: {node: '>=20.0.0'}
     dependencies:
       webidl-conversions: 7.0.0
       whatwg-mimetype: 3.0.0
@@ -2529,7 +2524,7 @@ packages:
       fsevents: 2.3.3
     dev: true
 
-  /vitest@3.1.4(@types/node@16.18.3)(happy-dom@17.4.7):
+  /vitest@3.1.4(@types/node@16.18.3)(happy-dom@17.6.3):
     resolution: {integrity: sha512-Ta56rT7uWxCSJXlBtKgIlApJnT6e6IGmTYxYcmxjJ4ujuZDI59GUQgVDObXXJujOmPDBYXHK1qmaGtneu6TNIQ==}
     engines: {node: ^18.0.0 || ^20.0.0 || >=22.0.0}
     hasBin: true
@@ -2568,7 +2563,7 @@ packages:
       chai: 5.2.0
       debug: 4.4.0
       expect-type: 1.2.1
-      happy-dom: 17.4.7
+      happy-dom: 17.6.3
       magic-string: 0.30.17
       pathe: 2.0.3
       std-env: 3.9.0
