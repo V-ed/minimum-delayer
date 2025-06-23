@@ -65,7 +65,7 @@
     "eslint": "9.29.0",
     "happy-dom": "18.0.1",
     "npm-run-all2": "8.0.4",
-    "prettier": "3.5.3",
+    "prettier": "3.6.0",
     "tsup": "8.5.0",
     "typescript": "5.5.4",
     "vite-tsconfig-paths": "4.3.2",
