@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.3](https://github.com/V-ed/minimum-delayer/compare/minimum-delayer-v0.3.2...minimum-delayer-v0.3.3) (2025-10-20)
+
+
+### Bug Fixes
+
+* move to tsup for building ([5ab7931](https://github.com/V-ed/minimum-delayer/commit/5ab793129501201f741b68c76b342b8432ed679e))
+
 ### [0.3.2](https://github.com/V-ed/minimum-delayer/compare/minimum-delayer-v0.3.1...minimum-delayer-v0.3.2) (2022-05-10)
 
 
