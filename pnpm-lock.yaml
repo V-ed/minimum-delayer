@@ -24,8 +24,8 @@ devDependencies:
     specifier: 10.8.0
     version: 10.8.0
   happy-dom:
-    specifier: 20.9.0
-    version: 20.9.0
+    specifier: 20.11.1
+    version: 20.11.1
   npm-run-all2:
     specifier: 8.0.4
     version: 8.0.4
@@ -43,7 +43,7 @@ devDependencies:
     version: 4.3.2(typescript@5.5.4)
   vitest:
     specifier: 3.2.7
-    version: 3.2.7(@types/node@16.18.3)(happy-dom@20.9.0)
+    version: 3.2.7(@types/node@16.18.3)(happy-dom@20.11.1)
 
 packages:
 
@@ -1057,7 +1057,7 @@ packages:
       std-env: 3.9.0
       test-exclude: 7.0.1
       tinyrainbow: 2.0.0
-      vitest: 3.2.7(@types/node@16.18.3)(happy-dom@20.9.0)
+      vitest: 3.2.7(@types/node@16.18.3)(happy-dom@20.11.1)
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -1220,6 +1220,13 @@ packages:
     engines: {node: '>=8'}
     dependencies:
       fill-range: 7.0.1
+    dev: true
+
+  /buffer-image-size@0.6.4:
+    resolution: {integrity: sha512-nEh+kZOPY1w+gcCMobZ6ETUp9WfibndnosbpwB1iJk/8Gt5ZF2bhS6+B6bPYz424KtwsR6Rflc3tCz1/ghX2dQ==}
+    engines: {node: '>=4.0'}
+    dependencies:
+      '@types/node': 16.18.3
     dev: true
 
   /bundle-require@5.1.0(esbuild@0.27.1):
@@ -1663,16 +1670,17 @@ packages:
     resolution: {integrity: sha512-EtKwoO6kxCL9WO5xipiHTZlSzBm7WLT627TqC/uVRd0HKmq8NXyebnNYxDoBi7wt8eTWrUrKXCOVaFq9x1kgag==}
     dev: true
 
-  /happy-dom@20.9.0:
-    resolution: {integrity: sha512-GZZ9mKe8r646NUAf/zemnGbjYh4Bt8/MqASJY+pSm5ZDtc3YQox+4gsLI7yi1hba6o+eCsGxpHn5+iEVn31/FQ==}
+  /happy-dom@20.11.1:
+    resolution: {integrity: sha512-XSt8tMzbW9ymE7687xztkO1ckR7qJNQ3LywY9vlYGhGi3zXrGBHuUo2Cl1ztZaICW+1eAGdkLbj6iwVqDT33kg==}
     engines: {node: '>=20.0.0'}
     dependencies:
       '@types/node': 20.19.1
       '@types/whatwg-mimetype': 3.0.2
       '@types/ws': 8.18.1
+      buffer-image-size: 0.6.4
       entities: 7.0.1
       whatwg-mimetype: 3.0.0
-      ws: 8.20.0
+      ws: 8.21.1
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate
@@ -2531,7 +2539,7 @@ packages:
       fsevents: 2.3.3
     dev: true
 
-  /vitest@3.2.7(@types/node@16.18.3)(happy-dom@20.9.0):
+  /vitest@3.2.7(@types/node@16.18.3)(happy-dom@20.11.1):
     resolution: {integrity: sha512-KrxIJ62Fd89gfysR4WotlgZABiz2dqFPgqGzX7s+CwsqLFomRH7777ZcrOD6+WVAh7khPQP41A+BKbpcJFrdEg==}
     engines: {node: ^18.0.0 || ^20.0.0 || >=22.0.0}
     hasBin: true
@@ -2571,7 +2579,7 @@ packages:
       chai: 5.2.0
       debug: 4.4.1
       expect-type: 1.2.1
-      happy-dom: 20.9.0
+      happy-dom: 20.11.1
       magic-string: 0.30.17
       pathe: 2.0.3
       picomatch: 4.0.2
@@ -2643,8 +2651,8 @@ packages:
       strip-ansi: 7.1.0
     dev: true
 
-  /ws@8.20.0:
-    resolution: {integrity: sha512-sAt8BhgNbzCtgGbt2OxmpuryO63ZoDk/sqaB/znQm94T4fCEsy/yV+7CdC1kJhOU9lboAEU7R3kquuycDoibVA==}
+  /ws@8.21.1:
+    resolution: {integrity: sha512-+0NTnW77fFN/DjQi6k/Sq/Yvk4Sgajw7urW8V+asjXnRgDs9gyGkdb7EzgfhA4goXsRIZKE28fzIXBHEzhuiWw==}
     engines: {node: '>=10.0.0'}
     peerDependencies:
       bufferutil: ^4.0.1
